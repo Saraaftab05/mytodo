@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Don't forget to install axios using: npm install axios
+import axios from 'axios';
 import TodoItem from './TodoItem';
 import './style.css';
+
+const API_BASE_URL = 'https://rv8vfe1nz6.execute-api.eu-north-1.amazonaws.com/dev/api/todo';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -23,8 +25,7 @@ const App = () => {
         status: 'Not started',
       };
       try {
-        // Replace 'YOUR_API_GATEWAY_ENDPOINT' with your actual API Gateway endpoint URL
-        const response = await axios.post('https://rv8vfe1nz6.execute-api.eu-north-1.amazonaws.com/dev/api/todo', newTask);
+        const response = await axios.post(API_BASE_URL, newTask);
         setTasks([...tasks, newTask]);
         setTaskText('');
       } catch (error) {
@@ -35,8 +36,7 @@ const App = () => {
 
   const fetchTodoListItems = async () => {
     try {
-      // Replace 'YOUR_API_GATEWAY_ENDPOINT' with your actual API Gateway endpoint URL
-      const response = await axios.get('https://rv8vfe1nz6.execute-api.eu-north-1.amazonaws.com/dev/api/todo');
+      const response = await axios.get(API_BASE_URL);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -45,8 +45,7 @@ const App = () => {
 
   const updateTask = async (taskId, updatedTask) => {
     try {
-      // Replace 'YOUR_API_GATEWAY_ENDPOINT' with your actual API Gateway endpoint URL
-      const response = await axios.put(`https://rv8vfe1nz6.execute-api.eu-north-1.amazonaws.com/dev/api/todo/${taskId}`, updatedTask);
+      const response = await axios.put(`${API_BASE_URL}/${taskId}`, updatedTask);
       const updatedTasks = tasks.map((task) => (task.id === taskId ? updatedTask : task));
       setTasks(updatedTasks);
     } catch (error) {
@@ -56,8 +55,7 @@ const App = () => {
 
   const deleteTask = async (taskId) => {
     try {
-      // Replace 'YOUR_API_GATEWAY_ENDPOINT' with your actual API Gateway endpoint URL
-      const response = await axios.delete(`https://rv8vfe1nz6.execute-api.eu-north-1.amazonaws.com/dev/api/todo/${taskId}`);
+      const response = await axios.delete(`${API_BASE_URL}/${taskId}`);
       const updatedTasks = tasks.filter((task) => task.id !== taskId);
       setTasks(updatedTasks);
     } catch (error) {
