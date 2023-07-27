@@ -3,7 +3,7 @@ import axios from 'axios';
 import TodoItem from './TodoItem';
 import './style.css';
 
-const API_BASE_URL = 'https://rv8vfe1nz6.execute-api.eu-north-1.amazonaws.com/dev/api/todo';
+const API_BASE_URL = ' https://zhpsltn5h2.execute-api.eu-north-1.amazonaws.com/dev/api/todo';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
