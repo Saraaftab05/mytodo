@@ -3,7 +3,7 @@ import axios from 'axios';
 import TodoItem from './TodoItem';
 import './style.css';
 
-const API_BASE_URL = 'https://wo89769obd.execute-api.eu-north-1.amazonaws.com/dev';
+const API_BASE_URL = 'https://n6zk1cbow9.execute-api.eu-north-1.amazonaws.com/dev';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -28,10 +28,6 @@ const App = () => {
         const response = await axios.post(API_BASE_URL, newTask, {
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://main.dhs60nem17pen.amplifyapp.com/', // Replace '*' with the origin URLs that you want to allow
-            'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, PUT, DELETE',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Credentials': 'true', // Set this to 'true' if you want to allow credentials in the request (e.g., cookies)
           },
         });
         setTasks([...tasks, newTask]);
@@ -44,11 +40,7 @@ const App = () => {
 
   const fetchTodoListItems = async () => {
     try {
-      const response = await axios.get(API_BASE_URL, {
-        headers: {
-          'Access-Control-Allow-Origin': 'https://main.dhs60nem17pen.amplifyapp.com/', // Replace '*' with the origin URLs that you want to allow
-        },
-      });
+      const response = await axios.get(API_BASE_URL);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -60,10 +52,7 @@ const App = () => {
       const response = await axios.put(`${API_BASE_URL}/${taskId}`, updatedTask, {
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://main.dhs60nem17pen.amplifyapp.com/', // Replace '*' with the origin URLs that you want to allow
-          'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, PUT, DELETE',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Allow-Credentials': 'true', // Set this to 'true' if you want to allow credentials in the request (e.g., cookies)
+         // Set this to 'true' if you want to allow credentials in the request (e.g., cookies)
         },
       });
       const updatedTasks = tasks.map((task) => (task.id === taskId ? updatedTask : task));
@@ -75,11 +64,7 @@ const App = () => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await axios.delete(`${API_BASE_URL}/${taskId}`, {
-        headers: {
-          'Access-Control-Allow-Origin': 'https://main.dhs60nem17pen.amplifyapp.com/', // Replace '*' with the origin URLs that you want to allow
-        },
-      });
+      const response = await axios.delete(`${API_BASE_URL}/${taskId}`);
       const updatedTasks = tasks.filter((task) => task.id !== taskId);
       setTasks(updatedTasks);
     } catch (error) {
