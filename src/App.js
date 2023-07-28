@@ -52,7 +52,7 @@ const App = () => {
       const response = await axios.put(`${API_BASE_URL}/${taskId}`, updatedTask, {
         headers: {
           'Content-Type': 'application/json',
-         // Set this to 'true' if you want to allow credentials in the request (e.g., cookies)
+        
         },
       });
       const updatedTasks = tasks.map((task) => (task.id === taskId ? updatedTask : task));
