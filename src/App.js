@@ -3,21 +3,21 @@ import axios from 'axios';
 import TodoItem from './TodoItem';
 import './style.css';
 
-const API_BASE_URL = 'https://n6zk1cbow9.execute-api.eu-north-1.amazonaws.com/dev';
+const API_BASE_URL = 'https://n6zk1cbow9.execute-api.eu-north-1.amazonaws.com/dev'; //API URL to store API GATEWAY 
 
-const App = () => {
-  const [tasks, setTasks] = useState([]);
-  const [taskText, setTaskText] = useState('');
+const App = () => { //root component 
+  const [tasks, setTasks] = useState([]); //tasks will store the list of to do items fetched from the API.
+  const [taskText, setTaskText] = useState(''); // tasksText will store the text entered by the user in input filed
 
-  useEffect(() => {
-    fetchTodoListItems();
+  useEffect(() => { 
+    fetchTodoListItems();           // this function is used to fetch all the to do list items 
   }, []);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event) => {     //updates the Tasktext 
     setTaskText(event.target.value);
   };
 
-  const addTask = async () => {
+  const addTask = async () => {                // adding new task 
     if (taskText.trim() !== '') {
       const newTask = {
         id: Date.now(),
@@ -25,7 +25,7 @@ const App = () => {
         status: 'Not started',
       };
       try {
-        const response = await axios.post(API_BASE_URL, newTask, {
+        const response = await axios.post(API_BASE_URL, newTask, {    //sends the post request to API with new task
           headers: {
             'Content-Type': 'application/json',
           },
@@ -38,16 +38,16 @@ const App = () => {
     }
   };
 
-  const fetchTodoListItems = async () => {
+  const fetchTodoListItems = async () => {   //fetch the list of to do items from 
     try {
-      const response = await axios.get(API_BASE_URL);
-      setTasks(response.data);
+      const response = await axios.get(API_BASE_URL);  
+      setTasks(response.data);  // storing list of tasks in Tasks
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
   };
 
-  const updateTask = async (taskId, updatedTask) => {
+  const updateTask = async (taskId, updatedTask) => {  //update the task in list
     try {
       const response = await axios.put(`${API_BASE_URL}/${taskId}`, updatedTask, {
         headers: {
@@ -72,7 +72,7 @@ const App = () => {
     }
   };
 
-  return (
+  return (                                  //defines the UI 
     <div className="container">
       <h1>To-Do List</h1>
       <div className="add-task">
