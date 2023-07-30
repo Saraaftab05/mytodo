@@ -19,7 +19,7 @@ const App = () => { //root component
 
   const addTask = async () => {                // adding new task 
     if (taskText.trim() !== '') {
-      const newTask = {
+      const newTask = {                       // creating new task object
         id: Date.now(),
         task: taskText,
         status: 'Not started',

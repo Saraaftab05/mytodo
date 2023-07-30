@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const TodoItem = ({ task, sequence, updateTask, deleteTask }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedTask, setEditedTask] = useState(task);
+  const [isEditing, setIsEditing] = useState(false);   // item is in edit mode or not
+  const [editedTask, setEditedTask] = useState(task); // keep track of the changings made to task 
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setEditedTask((prevTask) => ({ ...prevTask, [name]: value }));
+  const handleInputChange = (event) => {               //called when there is any change in the input field                    
+    const { name, value } = event.target;              // used to extract the name and value 
+    setEditedTask((prevTask) => ({ ...prevTask, [name]: value }));    
   };
 
   const handleEditClick = () => {
